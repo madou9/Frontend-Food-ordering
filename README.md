@@ -1,27 +1,50 @@
-# Food Ordering Platform
+# React + TypeScript + Vite
 
-Welcome to our Food Ordering Platform! This project aims to provide a comprehensive solution for ordering food online, catering to the needs of both customers and restaurant owners. Built with React, Node.js, MongoDB, and more, our platform offers a seamless experience for users to browse menus, place orders, and manage their accounts.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Features
+Currently, two official plugins are available:
 
-- **User Authentication**: Secure authentication powered by Auth0 allows users to sign up, log in, and manage their profiles.
-- **Menu Exploration**: Browse through a wide range of food items categorized by cuisine type or dietary preferences.
-- **Order Placement**: Effortlessly place orders with just a few clicks, customizing options and specifying delivery preferences.
-- **Payment Processing**: Securely process payments using Stripe integration, ensuring smooth transactions.
-- **Restaurant Management**: Restaurant owners can manage their menus, track orders, and update their availability.
-- **Order Tracking**: Track the status of orders in real-time, from confirmation to delivery.
-- **Responsive Design**: A responsive user interface ensures a seamless experience across devices.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Tech Stack
+## Expanding the ESLint configuration
 
-- **Frontend**: React, React Router, Tailwind CSS
-- **Backend**: Node.js, Express.js, MongoDB
-- **Authentication**: Auth0
-- **Payment Processing**: Stripe
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-## Getting Started
+- Configure the top-level `parserOptions` property like this:
 
-1. Clone the repository:
+```js
+export default tseslint.config({
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
+```
 
-```bash
-git clone https://github.com/your-username/food-ordering-platform.git
+- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
+- Optionally add `...tseslint.configs.stylisticTypeChecked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+
+```js
+// eslint.config.js
+import react from 'eslint-plugin-react'
+
+export default tseslint.config({
+  // Set the react version
+  settings: { react: { version: '18.3' } },
+  plugins: {
+    // Add the react plugin
+    react,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended rules
+    ...react.configs.recommended.rules,
+    ...react.configs['jsx-runtime'].rules,
+  },
+})
+```
