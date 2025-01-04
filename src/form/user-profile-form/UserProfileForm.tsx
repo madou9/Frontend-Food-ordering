@@ -26,7 +26,7 @@ type Props = {
 const UserProfileForm = ({onSave, isLoading}: Props) => {
     const form = useForm<userFormData>({
         resolver: zodResolver(formSchema), // Use the zod resolver
-    }); 
+    });
 
     return (
         <Form {...form}>
